@@ -1,0 +1,20 @@
+version: '3'
+services:
+ db:
+   build:
+     context: ./
+     dockerfile: db.dockerfile
+   volumes:
+     - ./storage_mongo:/data/db
+   ports:
+     - 27018:27017
+ app:
+   build:
+     context: ./
+     dockerfile: app.dockerfile
+   volumes:
+     - ./:/go/src/app
+   working_dir: /go/src/app
+   command: bash app.sh
+   ports:
+     - 3000:3000
